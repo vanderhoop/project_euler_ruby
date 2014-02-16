@@ -5,9 +5,9 @@
 num = 600851475143
 
 def is_prime?(num)
-  return false if num.even? || num <= 1
   return true if num == 2
-  for i in (2..(num/2 + 1))
+  return false if num.even? || num <= 1
+  for i in (2..(num/2.round + 1))
     return false if num % i == 0
   end
   return true
