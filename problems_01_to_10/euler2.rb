@@ -8,22 +8,45 @@
 # whose values do not exceed four million, find the
 # sum of the even-valued terms.
 #================================================
-fib_arr = [1,2]
 
-def fibonacci_builder(arr, limit)
-  new_num = arr[-1] + arr[-2]
-  if new_num > limit
-    return arr
-  else
-    arr.push(new_num)
-    fibonacci_builder(arr, 4_000_000)
+
+#=======================
+# non-recursive solution
+#=======================
+
+def fibonacci_builder(limit)
+  fibonacci_sequence= [1,2]
+  new_fib_number = 0
+  while new_fib_number < limit
+    last_num = fibonacci_sequence[-1]
+    second_last_num = fibonacci_sequence[-2]
+    new_fib_number = last_num + second_last_num
+    fibonacci_sequence.push(new_fib_number)
   end
+  return fibonacci_sequence
 end
 
-fib_to_4_mil = fibonacci_builder(fib_arr, 4_000_000)
+fib_to_4_mil = fibonacci_builder(4_000_000)
 answer = fib_to_4_mil.select(&:even?).reduce(:+)
 
 puts answer
 
+#=======================
+# recursive solution
+#=======================
+fibonnaci_sequence_array = [1,2]
 
+def fibonacci_builder_recursive(arr, limit)
+  new_num = arr[-1] + arr[-2]
+  if new_num > limit                  # base case
+    return arr
+  else                                # recursive case
+    arr.push(new_num)
+    fibonacci_builder_recursive(arr, 4_000_000)
+  end
+end
 
+fib_to_4_mil = fibonacci_builder_recursive(fibonnaci_sequence_array, 4_000_000)
+answer = fib_to_4_mil.select(&:even?).reduce(:+)
+
+puts answer
